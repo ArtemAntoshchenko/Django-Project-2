@@ -7,7 +7,10 @@ def index(request):
     num_bookInstance=BookInstance.objects.all().count()
     num_bookInstance_available=BookInstance.objects.filter(status__exact='a').count()
     num_author=Author.objects.all().count()
-    return render(request, 'index.html', context={'num_books':num_books, 'num_bookInstance':num_bookInstance, 'num_bookInstance_available':num_bookInstance_available, 'num_author':num_author})
+    num_visits = request.session.get('num_visits', 0)
+    num_visits += 1
+    request.session['num_visits'] = num_visits
+    return render(request, 'index.html', context={'num_books':num_books, 'num_bookInstance':num_bookInstance, 'num_bookInstance_available':num_bookInstance_available, 'num_author':num_author, 'num_visits':num_visits})
 
 class BookListView(generic.ListView):
     book=Book
