@@ -27,3 +27,13 @@ class BookListView(generic.ListView):
     
 class BookDetailView(generic.DetailView):
     book=Book
+    def get_queryset(self):
+        return Book.objects.all()
+    
+# def BookDetailView(request, pk):
+#     try:
+#         book = Book.objects.get(pk=pk)
+#     except Book.DoesNotExist:
+#         raise 'Book does not exist'
+
+#     return render(request, 'catalog/book_detail.html', context={'book': book})
