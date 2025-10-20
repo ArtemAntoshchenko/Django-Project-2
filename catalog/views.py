@@ -37,3 +37,16 @@ class BookDetailView(generic.DetailView):
 #         raise 'Book does not exist'
 
 #     return render(request, 'catalog/book_detail.html', context={'book': book})
+
+class AuthorListView(generic.ListView):
+    author=Author
+    context_object_name='author_list'
+    paginate_by=5
+    def get_queryset(self):
+        return Author.objects.all()[:5]
+    
+class AuthorDetailView(generic.DetailView):
+    author=Author
+    def get_queryset(self):
+        return Author.objects.all()
+    
