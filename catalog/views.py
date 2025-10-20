@@ -10,7 +10,7 @@ def index(request):
     num_visits = request.session.get('num_visits', 0)
     num_visits += 1
     request.session['num_visits'] = num_visits
-    return render(request, 'index.html', context={'num_books':num_books, 'num_bookInstance':num_bookInstance, 'num_bookInstance_available':num_bookInstance_available, 'num_author':num_author, 'num_visits':num_visits})
+    return render(request, 'index.html', context={'num_books':num_books, 'num_bookInstance':num_bookInstance, 'num_bookInstance_available':num_bookInstance_available, 'num_author':num_author, 'num_visits':num_visits, 'recently_viewed_books':recently_viewed_books})
 
 class BookListView(generic.ListView):
     book=Book
@@ -18,12 +18,27 @@ class BookListView(generic.ListView):
     # template_name='catalog/templates/book_list.html'
     paginate_by=5
     # queryset=Book.objects.filter(title__icontains='war'[:5])
+    def lastViewedBooks(self, request, *args, **kwargs):
+        self.object=self.get_object()
+        pk=self.object.pk
+        recently_viewed=request.session.get('recently_viewed',[])
+        if pk in recently_viewed:
+            recently_viewed.remove(pk)
+        recently_viewed.insert(0,pk)
+        request.session['recently_viewed']=recently_viewed
+        recently_viewed_books = Book.objects.filter(
+            pk__in=recently_viewed
+        )
+        request.session.modified=True
+        context = super().get_context_data(**kwargs)
+        context['recently_viewed_books']=recently_viewed_books
+        return context
     def get_queryset(self):
         return Book.objects.all()[:5]
-    def get_context_data(self, **kwargs):
-        context = super(BookListView, self).get_context_data(**kwargs)
-        context['some_data'] = 'This is just some data'
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(BookListView, self).get_context_data(**kwargs)
+    #     context['recently_viewed'] = 'recently_viewed'
+    #     return context
     
 class BookDetailView(generic.DetailView):
     book=Book
