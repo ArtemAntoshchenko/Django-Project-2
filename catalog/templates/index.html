@@ -1,6 +1,6 @@
 {% extends "base_generic.html" %}
 
-{% block sidebar %}
+{% comment %} {% block sidebar %}
 {% if recently_viewed_books %}
 <h2>Recently Viewed Books</h2>
 <ul>
@@ -14,7 +14,7 @@
 {% else %}
 <p>No recently viewed books</p>
 {% endif %}
-{% endblock %}
+{% endblock %} {% endcomment %}
 
 {% block content %}
   <h1>Local Library Home</h1>
