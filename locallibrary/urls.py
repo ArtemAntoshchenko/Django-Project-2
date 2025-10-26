@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.contrib.auth import urls
 from django.urls import path, include
 from django.views.generic import RedirectView
+from catalog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/password_reset/done/', views.contact_view, name='password_reset_email')
 ]
 
 urlpatterns += [
@@ -32,5 +34,5 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('accounts/', include(urls))
+    path('accounts/', include(urls)),
 ]
