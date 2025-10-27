@@ -22,7 +22,7 @@ from catalog import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/password_reset/done/', views.contact_view, name='password_reset_email')
+    # path('accounts/password_reset/done/', views.contact_view, name='password_reset_email')
 ]
 
 urlpatterns += [

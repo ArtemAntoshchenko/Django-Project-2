@@ -32,4 +32,9 @@
   </form>
   <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <p>Logged out:</p>
+    <a href="{% url 'login'%}">Click here to login again.</a>
+  </form>
 {% endblock %}
