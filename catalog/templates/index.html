@@ -1,21 +1,5 @@
 {% extends "base_generic.html" %}
 
-{% comment %} {% block sidebar %}
-{% if recently_viewed_books %}
-<h2>Recently Viewed Books</h2>
-<ul>
-    {% for book in recently_viewed_books %}
-    <li>
-        <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a> 
-        by {{ book.author }}
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No recently viewed books</p>
-{% endif %}
-{% endblock %} {% endcomment %}
-
 {% block content %}
   <h1>Local Library Home</h1>
   <p>

@@ -3,12 +3,14 @@
 {% block content %}
   <h1>Title: {{ book.title }}</h1>
 
-  <p><strong>Author:</strong> <a href="">{{ book.author }}</a></p>
-  <!-- author detail link not yet defined -->
+  <p><strong>Author:</strong> <a href="{{ book.author.get_absolute_url }}">{{ book.author }}</a></p>
   <p><strong>Summary:</strong> {{ book.summary }}</p>
   <p><strong>ISBN:</strong> {{ book.isbn }}</p>
   <p><strong>Genre:</strong> {{ book.genre.all|join:", " }}</p>
-
+  {% comment %} {% if perms.catalog.can_mark_returned %}
+    <!-- We can mark a BookInstance as returned. -->
+    <!-- Perhaps add code to link to a "book return" view here. -->
+  {% endif %} {% endcomment %}
   <div style="margin-left:20px;margin-top:20px">
     <h4>Copies</h4>
 
